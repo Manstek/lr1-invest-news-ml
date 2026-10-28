@@ -1,0 +1,33 @@
+erDiagram
+    direction LR
+    auth_user |o--o{ news_news : "назначен аналитиком"
+    news_security |o--o{ news_news : "относится к"
+    auth_user {
+        int id PK
+        string username
+        string first_name
+        string last_name
+    }
+    news_security {
+        int id PK
+        string ticker UK
+        string name
+        string sector
+        bool in_portfolio
+    }
+    news_news {
+        int id PK
+        text headline
+        int security_id FK
+        string source
+        datetime published_at
+        string status
+        int analyst_id FK
+        string ml_sentiment
+        float ml_confidence
+        json ml_probabilities
+        string ml_model_version
+        datetime ml_classified_at
+        string analyst_sentiment
+        bool is_alert
+    }

@@ -1,0 +1,50 @@
+{% extends "news/base.html" %}
+{% block mlstatus %}
+  <div class="ml">{% if ml_health %}<span class="dot" style="background:#4cd187"></span>ML-сервис: доступен · {{ ml_health.model_version }}{% else %}<span class="dot" style="background:#ff6b5e"></span>ML-сервис: недоступен{% endif %}</div>
+{% endblock %}
+{% block content %}
+<h1>Новости по бумагам портфеля</h1>
+<div class="stats">
+  <div class="stat"><span class="muted">Всего новостей</span><b>{{ news_list|length }}</b></div>
+  <div class="stat"><span class="muted">Требуют внимания</span><b style="color:var(--neg)">{{ alerts }}</b></div>
+</div>
+<div class="card">
+  <form class="filters" method="get">
+    <div><label>Тональность</label>
+      <select name="sentiment"><option value="">все</option>
+        {% for v, l in sentiments %}<option value="{{ v }}" {% if f.sentiment == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+        <option value="none" {% if f.sentiment == "none" %}selected{% endif %}>не определена</option>
+      </select></div>
+    <div><label>Статус</label>
+      <select name="status"><option value="">все</option>
+        {% for v, l in statuses %}<option value="{{ v }}" {% if f.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+      </select></div>
+    <div><label>Бумага</label>
+      <select name="security"><option value="">все</option>
+        {% for s in securities %}<option value="{{ s.ticker }}" {% if f.security == s.ticker %}selected{% endif %}>{{ s.ticker }}</option>{% endfor %}
+      </select></div>
+    <button class="btn secondary" type="submit">Показать</button>
+    <a class="btn" href="{% url 'news_create' %}" style="margin-left:auto">+ Добавить новость</a>
+  </form>
+</div>
+<table>
+  <thead><tr><th style="width:52%">Новость</th><th>Бумага</th><th>Тональность</th><th>Статус</th><th>Аналитик</th></tr></thead>
+  <tbody>
+  {% for n in news_list %}
+    <tr class="{% if n.is_alert %}alert{% endif %}">
+      <td>{% if n.is_alert %}<span title="Требует внимания">⚠️</span> {% endif %}<a href="{% url 'news_detail' n.pk %}">{{ n.headline|truncatechars:120 }}</a>
+        <div class="muted">{{ n.published_at|date:"d.m.Y H:i" }}{% if n.source %} · {{ n.source }}{% endif %}</div></td>
+      <td>{{ n.security.ticker|default:"—" }}</td>
+      <td>{% include "news/_sentiment.html" %}</td>
+      <td><span class="badge b-status">{{ n.get_status_display }}</span></td>
+      <td>{% if n.analyst %}{{ n.analyst.get_full_name|default:n.analyst.username }}{% else %}<span class="muted">не назначен</span>{% endif %}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="5" class="muted">Новостей нет.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<form method="post" action="{% url 'classify_all' %}" style="margin-top:14px">{% csrf_token %}
+  <button class="btn secondary" type="submit">Классифицировать новости без тональности</button>
+</form>
+{% endblock %}

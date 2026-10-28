@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor A as Аналитик
+    participant W as Django: views / services
+    participant D as БД (SQLite)
+    participant M as ML-сервис (FastAPI)
+    A->>W: POST /news/add/ (текст, бумага, источник)
+    W->>D: INSERT news (status = «Новая»)
+    W->>M: POST /predict {"text": ...}
+    alt сервис доступен
+        M-->>W: 200 {label, confidence, probabilities, model_version}
+        W->>W: бизнес-правило: негатив ≥ 0,6 по бумаге портфеля → «Требует внимания», «На анализе»
+        W->>D: UPDATE news (ml_*, is_alert, status)
+        W-->>A: карточка новости с тональностью
+    else таймаут / ошибка соединения
+        W-->>A: «ML-сервис недоступен — тональность будет определена позже»
+        Note over W,D: новость остаётся в БД без тональности<br/>и классифицируется позже
+    end

@@ -1,0 +1,1 @@
+{% with s=n.final_sentiment %}{% if s %}<span class="badge b-{{ s }}">{{ n.get_final_sentiment_display }}</span>{% if n.analyst_sentiment %} <span class="muted" title="исправлено аналитиком">✎</span>{% elif n.ml_confidence %} <span class="muted">{{ n.ml_confidence|floatformat:2 }}</span>{% endif %}{% else %}<span class="badge b-none">не определена</span>{% endif %}{% endwith %}

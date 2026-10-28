@@ -1,0 +1,34 @@
+digraph G {
+  rankdir=TB; newrank=true; compound=true;
+  graph [fontname="DejaVu Sans", fontsize=15, nodesep=0.35, ranksep=0.4, pad=0.1, labeljust=l];
+  node  [shape=box, style="rounded,filled", fillcolor="#F2F2F2", color="#808080", fontname="DejaVu Sans", fontsize=14, margin="0.12,0.06"];
+  edge  [color="#555555", fontname="DejaVu Sans", fontsize=13, arrowsize=0.7];
+
+  U [label="Аналитик\n(веб-браузер)", fillcolor="#FFFFFF"];
+  subgraph cluster_is { label="ИС InvestNews (Django, порт 8000)"; style="rounded"; color="#606060";
+    V [label="Представления\nviews.py"];
+    S [label="Прикладная логика\nservices.py"];
+    C [label="Клиент ML-сервиса\nml_client.py"];
+    O [label="Модели ORM\nmodels.py"];
+  }
+  DB [label="Реляционная БД\nSQLite", shape=cylinder, fillcolor="#FFFFFF"];
+  subgraph cluster_ml { label="ML-сервис (FastAPI, порт 8001)"; labelloc=b; style="rounded"; color="#606060";
+    A [label="REST API\nmain.py"];
+    M [label="Модель TF-IDF +\nLogisticRegression"];
+  }
+  subgraph cluster_off { label="Обучение (офлайн)"; style="rounded,dashed"; color="#808080";
+    K [label="Датасет Kaggle\nall-data.csv", shape=cylinder, fillcolor="#FFFFFF"];
+    T [label="ml/train.py"];
+    F [label="sentiment_model\n.joblib", shape=note, fillcolor="#FFFFFF"];
+  }
+  U -> V [label=" HTTP "];
+  V -> S; S -> C; V -> O; S -> O;
+  O -> DB [dir=both];
+  C -> A [label="  REST / JSON: POST /predict, GET /health"];
+  A -> M;
+  K -> T -> F;
+  F -> M [label="загрузка\nпри старте", style=dashed];
+  {rank=same; U; V; K}
+  {rank=same; S; O; T}
+  {rank=same; A; M; F}
+}

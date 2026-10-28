@@ -1,0 +1,47 @@
+{% extends "news/base.html" %}
+{% block content %}
+<p><a href="{% url 'news_list' %}">← к списку новостей</a></p>
+<h1>{% if news.is_alert %}⚠️ {% endif %}Новость №{{ news.pk }}</h1>
+<div class="grid">
+  <div>
+    <div class="card">
+      <p style="font-size:16.5px;margin-top:0">{{ news.headline }}</p>
+      <dl>
+        <dt>Ценная бумага</dt><dd>{{ news.security|default:"—" }}</dd>
+        <dt>Источник</dt><dd>{{ news.source|default:"—" }}</dd>
+        <dt>Опубликована</dt><dd>{{ news.published_at|date:"d.m.Y H:i" }}</dd>
+        <dt>Статус</dt><dd><span class="badge b-status">{{ news.get_status_display }}</span>{% if news.is_alert %} <span class="badge b-negative">требует внимания</span>{% endif %}</dd>
+        <dt>Аналитик</dt><dd>{% if news.analyst %}{{ news.analyst.get_full_name|default:news.analyst.username }}{% else %}не назначен{% endif %}</dd>
+        <dt>Итоговая тональность</dt><dd>{% include "news/_sentiment.html" with n=news %}</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Обработка аналитиком</h3>
+      <form method="post">{% csrf_token %}
+        {% for field in form %}<div class="form-row"><label>{{ field.label }}</label>{{ field }}</div>{% endfor %}
+        <button class="btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <h3 style="margin-top:0">Результат ML-классификации</h3>
+      {% if news.is_classified %}
+        <p>Тональность: <span class="badge b-{{ news.ml_sentiment }}">{{ news.get_ml_sentiment_display }}</span>
+           · уверенность <b>{{ news.ml_confidence|floatformat:2 }}</b></p>
+        {% for label, key, p in probs %}
+          <div style="margin:8px 0"><div style="display:flex;justify-content:space-between"><span>{{ label }}</span><span class="muted">{{ p|floatformat:3 }}</span></div>
+          <div class="bar"><span style="width:{% widthratio p 1 100 %}%;background:var(--{% if key == 'positive' %}pos{% elif key == 'negative' %}neg{% else %}neu{% endif %})"></span></div></div>
+        {% endfor %}
+        <p class="muted">Модель: {{ news.ml_model_version }}<br>Классифицирована: {{ news.ml_classified_at|date:"d.m.Y H:i:s" }}</p>
+      {% else %}
+        <p><span class="badge b-none">не классифицирована</span></p>
+        <p class="muted">ML-сервис был недоступен при сохранении новости.</p>
+      {% endif %}
+      <form method="post" action="{% url 'news_reclassify' news.pk %}">{% csrf_token %}
+        <button class="btn secondary" type="submit">Классифицировать заново</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

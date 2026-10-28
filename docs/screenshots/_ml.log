@@ -1,0 +1,91 @@
+2026-10-28 23:23:34,094 INFO Модель загружена: tfidf_lr-20261028
+INFO:     Started server process [326]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57268 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57276 - "GET /health HTTP/1.1" 200 OK
+2026-10-28 23:23:34,591 INFO predict label=neutral conf=0.499 len=86
+INFO:     127.0.0.1:57278 - "POST /predict HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57282 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57298 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57298 - "GET /openapi.json HTTP/1.1" 200 OK
+2026-10-28 23:23:36,649 INFO predict label=positive conf=0.986 len=80
+INFO:     127.0.0.1:57298 - "POST /predict HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39974 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39990 - "GET /health HTTP/1.1" 200 OK
+2026-10-28 23:24:16,943 INFO predict label=positive conf=0.530 len=77
+INFO:     127.0.0.1:39996 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,949 INFO predict label=neutral conf=0.556 len=173
+INFO:     127.0.0.1:40000 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,955 INFO predict label=neutral conf=0.911 len=115
+INFO:     127.0.0.1:40008 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,962 INFO predict label=neutral conf=0.677 len=61
+INFO:     127.0.0.1:40024 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,969 INFO predict label=positive conf=0.425 len=169
+INFO:     127.0.0.1:40028 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,975 INFO predict label=positive conf=0.833 len=109
+INFO:     127.0.0.1:40036 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,982 INFO predict label=positive conf=0.714 len=126
+INFO:     127.0.0.1:40038 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,988 INFO predict label=negative conf=0.410 len=150
+INFO:     127.0.0.1:40044 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,994 INFO predict label=neutral conf=0.669 len=74
+INFO:     127.0.0.1:40060 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:16,999 INFO predict label=positive conf=0.544 len=130
+INFO:     127.0.0.1:40070 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,003 INFO predict label=negative conf=0.670 len=138
+INFO:     127.0.0.1:40072 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,009 INFO predict label=positive conf=0.514 len=78
+INFO:     127.0.0.1:40078 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,014 INFO predict label=positive conf=0.949 len=96
+INFO:     127.0.0.1:40092 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,019 INFO predict label=neutral conf=0.901 len=123
+INFO:     127.0.0.1:40096 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,025 INFO predict label=neutral conf=0.796 len=130
+INFO:     127.0.0.1:40100 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,031 INFO predict label=negative conf=0.794 len=168
+INFO:     127.0.0.1:40110 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,035 INFO predict label=positive conf=0.990 len=78
+INFO:     127.0.0.1:40124 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,041 INFO predict label=positive conf=0.574 len=155
+INFO:     127.0.0.1:40128 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,047 INFO predict label=neutral conf=0.776 len=110
+INFO:     127.0.0.1:40134 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,052 INFO predict label=neutral conf=0.844 len=86
+INFO:     127.0.0.1:40138 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,058 INFO predict label=neutral conf=0.746 len=107
+INFO:     127.0.0.1:40154 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,063 INFO predict label=neutral conf=0.591 len=114
+INFO:     127.0.0.1:40158 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,069 INFO predict label=negative conf=0.950 len=135
+INFO:     127.0.0.1:40170 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,075 INFO predict label=positive conf=0.744 len=147
+INFO:     127.0.0.1:40178 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,080 INFO predict label=positive conf=0.992 len=85
+INFO:     127.0.0.1:40188 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,085 INFO predict label=negative conf=0.711 len=100
+INFO:     127.0.0.1:40200 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:17,091 INFO predict label=neutral conf=0.499 len=86
+INFO:     127.0.0.1:40208 - "POST /predict HTTP/1.1" 200 OK
+2026-10-28 23:24:18,517 INFO predict label=negative conf=0.670 len=138
+INFO:     127.0.0.1:40216 - "POST /predict HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [326]
+2026-10-28 23:24:23,974 INFO Модель загружена: tfidf_lr-20261028
+INFO:     Started server process [437]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60946 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60958 - "GET /health HTTP/1.1" 200 OK
+2026-10-28 23:24:24,264 INFO predict label=neutral conf=0.499 len=86
+INFO:     127.0.0.1:60970 - "POST /predict HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60986 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32772 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32772 - "GET /openapi.json HTTP/1.1" 200 OK
+2026-10-28 23:24:26,855 INFO predict label=positive conf=0.986 len=80
+INFO:     127.0.0.1:32772 - "POST /predict HTTP/1.1" 200 OK

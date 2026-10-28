@@ -1,0 +1,17 @@
+{% extends "news/base.html" %}
+{% block content %}
+<h1>Тональность новостей по бумагам</h1>
+<p class="muted">Индекс тональности = (позитивные − негативные) / все классифицированные новости по бумаге. Учитывается итоговая тональность (исправление аналитика имеет приоритет над моделью).</p>
+<table>
+  <thead><tr><th>Тикер</th><th>Эмитент</th><th>Отрасль</th><th>В портфеле</th><th>Позитивные</th><th>Нейтральные</th><th>Негативные</th><th>Индекс</th><th>Требуют внимания</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr><td><a href="{% url 'news_list' %}?security={{ r.ticker }}">{{ r.ticker }}</a></td><td>{{ r.name }}</td><td>{{ r.sector }}</td>
+      <td>{{ r.in_portfolio|yesno:"да,нет" }}</td>
+      <td style="color:var(--pos)">{{ r.pos }}</td><td>{{ r.neu }}</td><td style="color:var(--neg)">{{ r.neg }}</td>
+      <td><b style="color:{% if r.index > 0 %}var(--pos){% elif r.index < 0 %}var(--neg){% else %}inherit{% endif %}">{% if r.index is not None %}{{ r.index|floatformat:2 }}{% else %}—{% endif %}</b></td>
+      <td>{{ r.alerts }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

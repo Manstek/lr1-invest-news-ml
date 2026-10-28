@@ -1,0 +1,13 @@
+{% extends "news/base.html" %}
+{% block content %}
+<h1>Добавление новости</h1>
+<div class="card" style="max-width:760px">
+  <form method="post">{% csrf_token %}
+    {% for field in form %}
+      <div class="form-row"><label>{{ field.label }}</label>{{ field }}{% for e in field.errors %}<div class="msg-error">{{ e }}</div>{% endfor %}</div>
+    {% endfor %}
+    <p class="muted">После сохранения текст новости автоматически отправляется в ML-сервис, который определяет её тональность.</p>
+    <button class="btn" type="submit">Сохранить и классифицировать</button>
+  </form>
+</div>
+{% endblock %}
